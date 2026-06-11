@@ -23,6 +23,16 @@ const handleJsonResponse = async (
   return data;
 };
 
+const sanitizeUserPayload = (payload: any) => {
+  const body = { ...payload };
+
+  if (body.branchId === "" || body.branchId == null) {
+    delete body.branchId;
+  }
+
+  return body;
+};
+
 export const loginCustomer =
   async (
 
@@ -86,7 +96,7 @@ export const createUser =
         {
           method: "POST",
           headers: getAuthHeaders(),
-          body: JSON.stringify(userData)
+          body: JSON.stringify(sanitizeUserPayload(userData))
         }
       );
 
@@ -106,7 +116,7 @@ export const updateUser =
         {
           method: "PUT",
           headers: getAuthHeaders(),
-          body: JSON.stringify(updateData)
+          body: JSON.stringify(sanitizeUserPayload(updateData))
         }
       );
 

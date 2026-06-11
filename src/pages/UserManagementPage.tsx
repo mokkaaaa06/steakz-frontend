@@ -89,13 +89,25 @@ export default function UserManagementPage() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    if ((form.role === "CHEF" || form.role === "BRANCH_MANAGER") && !form.branchId) {
+      alert("Please select a branch for CHEF or BRANCH_MANAGER roles.");
+      return;
+    }
+
     try {
       setLoading(true);
 
+      const payload = {
+        name: form.name,
+        email: form.email,
+        role: form.role,
+        ...(form.branchId ? { branchId: form.branchId } : {})
+      };
+
       if (selectedUser) {
-        await updateUser(selectedUser.id, form);
+        await updateUser(selectedUser.id, payload);
       } else {
-        await createUser(form);
+        await createUser(payload);
       }
 
       resetForm();

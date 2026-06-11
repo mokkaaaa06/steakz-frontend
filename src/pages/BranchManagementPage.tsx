@@ -88,6 +88,8 @@ export default function BranchManagementPage() {
     dashboard?.manager ||
     dashboard?.branchManager ||
     dashboard?.managerDetails ||
+    dashboard?.branch?.manager ||
+    dashboard?.branch?.branchManager ||
     null;
 
   const chefs =
@@ -189,6 +191,10 @@ export default function BranchManagementPage() {
                   <p>
                     <strong>Email: </strong>
                     {manager?.email ?? "-"}
+                  </p>
+                  <p>
+                    <strong>Role: </strong>
+                    {manager?.role ?? "-"}
                   </p>
                 </div>
 
