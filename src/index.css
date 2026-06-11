@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+
+  width: 100%;
+  min-height: 100%;
+
+  background: #1a1714;
+
+  color: #f8f2dc;
+
+  font-family:
+    'Cormorant Garamond',
+    serif;
+
+  overflow-x: hidden;
+}
+
+body {
+
+  background:
+    radial-gradient(
+      circle at top,
+      #2a221d 0%,
+      #1a1714 60%
+    );
+}
+
+button {
+
+  font-family:
+    'Cormorant Garamond',
+    serif;
+}
+
+a {
+
+  transition:
+    0.3s ease;
+}
+
+a:hover {
+
+  color:
+    #CCA25A;
+}
+
+a,
+a:visited,
+a:hover,
+a:active {
+
+  color: #f8f2dc !important;
+
+  text-decoration: none !important;
+}
