@@ -85,12 +85,11 @@ export default function BranchManagementPage() {
     dashboard;
 
   const manager =
-    dashboard?.manager ||
-    dashboard?.branchManager ||
-    dashboard?.managerDetails ||
-    dashboard?.branch?.manager ||
-    dashboard?.branch?.branchManager ||
-    null;
+    Array.isArray(branch?.users)
+      ? branch.users.find(
+          (user: any) => user.role === "BRANCH_MANAGER"
+        )
+      : null;
 
   const chefs =
     Array.isArray(dashboard?.chefs)
@@ -184,18 +183,24 @@ export default function BranchManagementPage() {
 
                 <div style={cardStyle}>
                   <h2>Branch Manager</h2>
-                  <p>
-                    <strong>Name: </strong>
-                    {manager?.name ?? "-"}
-                  </p>
-                  <p>
-                    <strong>Email: </strong>
-                    {manager?.email ?? "-"}
-                  </p>
-                  <p>
-                    <strong>Role: </strong>
-                    {manager?.role ?? "-"}
-                  </p>
+                  {manager ? (
+                    <>
+                      <p>
+                        <strong>Name: </strong>
+                        {manager.name}
+                      </p>
+                      <p>
+                        <strong>Email: </strong>
+                        {manager.email}
+                      </p>
+                      <p>
+                        <strong>Role: </strong>
+                        {manager.role}
+                      </p>
+                    </>
+                  ) : (
+                    <p>No manager assigned</p>
+                  )}
                 </div>
 
                 <div style={cardStyle}>
