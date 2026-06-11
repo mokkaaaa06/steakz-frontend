@@ -30,6 +30,10 @@ const sanitizeUserPayload = (payload: any) => {
     delete body.branchId;
   }
 
+  if (body.password === "" || body.password == null) {
+    delete body.password;
+  }
+
   return body;
 };
 
@@ -88,6 +92,9 @@ export const createUser =
   async (
     userData: any
   ) => {
+    const payload = sanitizeUserPayload(userData);
+    console.log("createUser payload", payload);
+
     const response =
       await fetch(
 
@@ -96,7 +103,7 @@ export const createUser =
         {
           method: "POST",
           headers: getAuthHeaders(),
-          body: JSON.stringify(sanitizeUserPayload(userData))
+          body: JSON.stringify(payload)
         }
       );
 

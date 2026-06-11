@@ -23,6 +23,7 @@ export default function UserManagementPage() {
   const [form, setForm] = useState({
     name: "",
     email: "",
+    password: "",
     role: "CUSTOMER",
     branchId: ""
   });
@@ -81,6 +82,7 @@ export default function UserManagementPage() {
     setForm({
       name: "",
       email: "",
+      password: "",
       role: "CUSTOMER",
       branchId: ""
     });
@@ -94,6 +96,11 @@ export default function UserManagementPage() {
       return;
     }
 
+    if (!selectedUser && !form.password) {
+      alert("Password is required when creating a new user.");
+      return;
+    }
+
     try {
       setLoading(true);
 
@@ -101,8 +108,11 @@ export default function UserManagementPage() {
         name: form.name,
         email: form.email,
         role: form.role,
-        ...(form.branchId ? { branchId: form.branchId } : {})
+        ...(form.branchId ? { branchId: form.branchId } : {}),
+        ...(form.password ? { password: form.password } : {})
       };
+
+      console.log("create/update user payload", payload);
 
       if (selectedUser) {
         await updateUser(selectedUser.id, payload);
@@ -124,6 +134,7 @@ export default function UserManagementPage() {
     setForm({
       name: user.name || "",
       email: user.email || "",
+      password: "",
       role: user.role || "CUSTOMER",
       branchId: user.branchId || user.branch?.id || user.branch?._id || ""
     });
@@ -165,6 +176,16 @@ export default function UserManagementPage() {
           onChange={handleChange}
           style={inputStyle}
           required
+        />
+
+        <input
+          name="password"
+          placeholder="Password"
+          type="password"
+          value={form.password}
+          onChange={handleChange}
+          style={inputStyle}
+          required={!selectedUser}
         />
 
         <select
