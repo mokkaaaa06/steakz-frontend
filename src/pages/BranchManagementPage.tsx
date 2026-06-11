@@ -84,12 +84,24 @@ export default function BranchManagementPage() {
     dashboard?.branchDetails ||
     dashboard;
 
-  const manager =
+  console.log("BranchManagement dashboard", dashboard);
+  console.log("BranchManagement branch", branch);
+  console.log("BranchManagement dashboard.branch", dashboard?.branch);
+  console.log("BranchManagement dashboard.users", dashboard?.users);
+  console.log("BranchManagement branch.users", branch?.users);
+
+  const users =
     Array.isArray(branch?.users)
-      ? branch.users.find(
-          (user: any) => user.role === "BRANCH_MANAGER"
-        )
-      : null;
+      ? branch.users
+      : Array.isArray(dashboard?.users)
+        ? dashboard.users
+        : Array.isArray(dashboard?.branch?.users)
+          ? dashboard.branch.users
+          : [];
+
+  const manager = users.find(
+    (user: any) => user.role === "BRANCH_MANAGER"
+  ) ?? null;
 
   const chefs =
     Array.isArray(dashboard?.chefs)
